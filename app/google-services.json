@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "840843916256",
+    "project_id": "pamd-cd71e",
+    "storage_bucket": "pamd-cd71e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840843916256:android:2050d7be1474030db53185",
+        "android_client_info": {
+          "package_name": "com.example.meet13"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAb8bQLKg11RxOcxbtGvo1uz0penoY-_WE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
