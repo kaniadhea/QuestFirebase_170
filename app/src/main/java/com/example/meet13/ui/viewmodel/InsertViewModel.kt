@@ -4,8 +4,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.meet13.model.Mahasiswa
 import com.example.meet13.repository.MahasiswaRepository
+import kotlinx.coroutines.launch
 
 class InsertViewModel(
     private val mhs: MahasiswaRepository
@@ -23,7 +25,32 @@ class InsertViewModel(
     }
 
     fun validateFields(): Boolean{
-        val event
+        val event = uiEvent.insertUiEvent
+        val errorState = FormErrorState(
+            nim = if (event.nim.isNotEmpty()) null else " NIM tidak boleh kosong",
+            nama = if (event.nama.isNotEmpty()) null else " Nama tidak boleh kosong",
+            kelas = if (event.kelas.isNotEmpty()) null else " Kelas tidak boleh kosong",
+            alamat = if (event.alamat.isNotEmpty()) null else " Alamat tidak boleh kosong",
+            angkatan = if (event.angkatan.isNotEmpty()) null else " Angkatan tidak boleh kosong",
+            jenis_kelamin = if (event.jenis_kelamin.isNotEmpty()) null else " Jenis Kelamin tidak boleh kosong",
+        )
+
+        uiEvent = uiEvent.copy(isEntryValid = errorState)
+        return errorState.isValid()
+    }
+
+    fun insertMhs(){
+        if (validateFields()){
+            viewModelScope.launch {
+                uiState = FormState.Loading
+                try {
+                    mhs.insertMahasiswa(uiEvent.insertUiEvent.toMhsModel())
+                    uiState = FormState.Success("Data Berhasil disimpan")
+                } catch (e: Exception){
+
+                }
+            }
+        }
     }
 }
 
