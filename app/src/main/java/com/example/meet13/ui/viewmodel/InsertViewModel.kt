@@ -1,12 +1,38 @@
 package com.example.meet13.ui.viewmodel
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.meet13.model.Mahasiswa
 import com.example.meet13.repository.MahasiswaRepository
 
 class InsertViewModel(
     private val mhs: MahasiswaRepository
-)
+) : ViewModel(){
+    var uiEvent: InsertUiState by mutableStateOf(InsertUiState())
+        private set
+    var uiState: FormState by mutableStateOf(FormState.Idle)
+        private set
+
+    //memperbaryi state berdasarkan inpiut pengguna
+    fun updateState (mahasiswaEvent: MahasiswaEvent){
+        uiEvent = uiEvent.copy(
+            insertUiEvent = mahasiswaEvent
+        )
+    }
+
+    fun validateFields(): Boolean{
+        val event
+    }
+}
+
+sealed class FormState{
+    object Idle : FormState()
+    object Loading : FormState()
+    data class Success(val message: String): FormState()
+    data class Error(val message: String): FormState()
+}
 
 
 data class InsertUiState(
