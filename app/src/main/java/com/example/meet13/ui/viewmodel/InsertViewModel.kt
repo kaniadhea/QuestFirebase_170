@@ -47,10 +47,19 @@ class InsertViewModel(
                     mhs.insertMahasiswa(uiEvent.insertUiEvent.toMhsModel())
                     uiState = FormState.Success("Data Berhasil disimpan")
                 } catch (e: Exception){
+                    uiState = FormState.Error(" Data Gagal Disimpan")
 
                 }
             }
-        }
+        } else
+            uiState = FormState.Error("Data tidak valid")
+    }
+    fun resetForm(){
+        uiEvent = InsertUiState()
+        uiState = FormState.Idle
+    }
+    fun resetSnackBarMessage() {
+        uiState = FormState.Idle
     }
 }
 
