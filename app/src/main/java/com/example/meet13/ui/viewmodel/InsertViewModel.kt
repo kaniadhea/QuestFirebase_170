@@ -8,6 +8,14 @@ class InsertViewModel(
     private val mhs: MahasiswaRepository
 )
 
+
+data class InsertUiState(
+    val insertUiEvent: MahasiswaEvent = MahasiswaEvent(),
+    val isEntryValid: FormErrorState = FormErrorState(),
+)
+
+
+
 data class FormErrorState(
     val nim: String? = null,
     val nama: String? = null,
@@ -25,12 +33,12 @@ data class FormErrorState(
 
 
 data class MahasiswaEvent(
-    val nim: String,
-    val nama: String,
-    val kelas: String,
-    val alamat: String,
-    val angkatan: String,
-    val jenis_kelamin: String,
+    val nim: String = "",
+    val nama: String = "",
+    val kelas: String = "",
+    val alamat: String = "",
+    val angkatan: String = "",
+    val jenis_kelamin: String = "",
 )
 
 fun MahasiswaEvent.toMhsModel(): Mahasiswa = Mahasiswa(
