@@ -7,11 +7,14 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.meet13.MahasiswaApplications
 import com.example.meet13.ui.viewmodel.HomeViewModel
+import com.example.meet13.ui.viewmodel.InsertViewModel
 
 
 object PenyediaViewModel {
     val Factory = viewModelFactory {
         initializer { HomeViewModel(AplikasiMahasiswa().container.mahasiswaRepository) }
+
+        initializer { InsertViewModel(AplikasiMahasiswa().container.mahasiswaRepository) }
     }
 
     fun CreationExtras.AplikasiMahasiswa(): MahasiswaApplications =
