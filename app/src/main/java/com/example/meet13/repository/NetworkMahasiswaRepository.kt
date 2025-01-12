@@ -12,7 +12,7 @@ class NetworkMahasiswaRepository (
     private val firestore: FirebaseFirestore
 ): MahasiswaRepository{
 
-    override suspend fun insertMhs(mahasiswa: Mahasiswa){
+    override suspend fun insertMahasiswa(mahasiswa: Mahasiswa) {
         try {
             firestore.collection("Mahasiswa"). add(mahasiswa).await()
         } catch (e: Exception){
@@ -39,7 +39,7 @@ class NetworkMahasiswaRepository (
         }
     }
 
-    override suspend fun updateMahasiswa(nim: String, mahasiswa: Mahasiswa) {
+    override suspend fun updateMahasiswa(mahasiswa: Mahasiswa) {
         try {
             firestore.collection("Mahasiswa")
                 .document(mahasiswa.nim)
@@ -50,12 +50,29 @@ class NetworkMahasiswaRepository (
         }
     }
 
-    override suspend fun deleteMahasiswa(nim: String) {
-        TODO("Not yet implemented")
+    override suspend fun deleteMahasiswa(mahasiswa: Mahasiswa) {
+       try {
+           firestore.collection("Mahasiswa")
+               .document(mahasiswa.nim)
+               .delete()
+               .await()
+       }catch (e: Exception){
+           throw Exception("Galal menghapus data mahasiswa : ${e.message}")
+       }
     }
 
     override suspend fun getMahasiswabyNim(nim: String): Flow<Mahasiswa> = callbackFlow {
-        val
+        val mhsDocument = firestore.collection("Mahasiswa")
+            .document(nim)
+            .addSnapshotListener { value, error ->
+                if (value != null) {
+                    val mhs = value.toObject(Mahasiswa::class.java)!!
+                    trySend(mhs)
+                }
+            }
+        awaitClose {
+            mhsDocument.remove()
+        }
     }
 
 }
