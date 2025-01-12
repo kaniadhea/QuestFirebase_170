@@ -21,7 +21,6 @@ class NetworkMahasiswaRepository (
     }
 
 
-
     override suspend fun getMahasiswa(): Flow<List<Mahasiswa>> = callbackFlow {
 
         val mhsCollection = firestore.collection("Mahasiswa")
@@ -40,20 +39,23 @@ class NetworkMahasiswaRepository (
         }
     }
 
-    override suspend fun insertMahasiswa(mahasiswa: Mahasiswa) {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun updateMahasiswa(nim: String, mahasiswa: Mahasiswa) {
-        TODO("Not yet implemented")
+        try {
+            firestore.collection("Mahasiswa")
+                .document(mahasiswa.nim)
+                .set(mahasiswa)
+                .await()
+        } catch (e: Exception){
+            throw Exception("Galal mengupdate data mahasiswa : ${e.message}")
+        }
     }
 
     override suspend fun deleteMahasiswa(nim: String) {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getMahasiswabyNim(nim: String): Flow<Mahasiswa> {
-        TODO("Not yet implemented")
+    override suspend fun getMahasiswabyNim(nim: String): Flow<Mahasiswa> = callbackFlow {
+        val
     }
 
 }
