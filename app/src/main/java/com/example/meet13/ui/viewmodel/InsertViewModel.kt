@@ -29,10 +29,14 @@ class InsertViewModel(
         val errorState = FormErrorState(
             nim = if (event.nim.isNotEmpty()) null else " NIM tidak boleh kosong",
             nama = if (event.nama.isNotEmpty()) null else " Nama tidak boleh kosong",
-            kelas = if (event.kelas.isNotEmpty()) null else " Kelas tidak boleh kosong",
+//            kelas = if (event.kelas.isNotEmpty()) null else " Kelas tidak boleh kosong",
             alamat = if (event.alamat.isNotEmpty()) null else " Alamat tidak boleh kosong",
-            angkatan = if (event.angkatan.isNotEmpty()) null else " Angkatan tidak boleh kosong",
-            jenis_kelamin = if (event.jenis_kelamin.isNotEmpty()) null else " Jenis Kelamin tidak boleh kosong",
+//            angkatan = if (event.angkatan.isNotEmpty()) null else " Angkatan tidak boleh kosong",
+//            jenis_kelamin = if (event.jenis_kelamin.isNotEmpty()) null else " Jenis Kelamin tidak boleh kosong",
+            dosen1 = if (event.dosen1.isNotEmpty()) null else " Jenis Kelamin tidak boleh kosong",
+            dosen2 = if (event.dosen2.isNotEmpty()) null else " Jenis Kelamin tidak boleh kosong",
+            judulskripsi = if (event.judulskripsi.isNotEmpty()) null else " Jenis Kelamin tidak boleh kosong",
+
         )
 
         uiEvent = uiEvent.copy(isEntryValid = errorState)
@@ -85,6 +89,9 @@ data class FormErrorState(
     val alamat: String? = null,
     val angkatan: String? = null,
     val jenis_kelamin: String? = null,
+    val dosen1: String? = null,
+    val dosen2: String? = null,
+    val judulskripsi: String? = null,
 ){
     fun isValid(): Boolean{
         return nim == null && nama == null
@@ -101,7 +108,12 @@ data class MahasiswaEvent(
     val alamat: String = "",
     val angkatan: String = "",
     val jenis_kelamin: String = "",
+    val dosen1: String = "",
+    val dosen2: String = "",
+    val judulskripsi: String = ""
 )
+
+
 
 fun MahasiswaEvent.toMhsModel(): Mahasiswa = Mahasiswa(
     nim = nim,
@@ -110,4 +122,7 @@ fun MahasiswaEvent.toMhsModel(): Mahasiswa = Mahasiswa(
     alamat = alamat,
     angkatan = angkatan,
     jenis_kelamin = jenis_kelamin,
+    dosen1= dosen1,
+    dosen2= dosen2,
+    judulskripsi = judulskripsi
 )

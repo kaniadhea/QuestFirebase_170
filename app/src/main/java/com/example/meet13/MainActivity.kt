@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.meet13.ui.navigation.PengelolaHalaman
 import com.example.meet13.ui.theme.Meet13Theme
 import com.example.meet13.ui.view.HomeScreen
 
@@ -21,8 +22,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             Meet13Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(
-                        navigateTolItemEntry = {}, modifier = Modifier.padding(innerPadding)
+                    PengelolaHalaman(
+                        modifier = Modifier.padding(innerPadding),
                     )
                 }
             }
@@ -37,7 +38,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         modifier = modifier
     )
 }
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
